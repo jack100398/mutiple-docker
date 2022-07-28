@@ -1,10 +1,10 @@
 services:
-  # php-fpm 7.3
+  # php-fpm 8.1
   php81:
     build:
       context: .
-      dockerfile: ./php/Dockerfile81
-    container_name: local-php
+      dockerfile: ./php/Dockerfile
+    container_name: local-php-new
     tty: true
     restart: unless-stopped
     volumes:
@@ -15,8 +15,8 @@ services:
   php-fpm81:
     build:
       context: .
-      dockerfile: ./php/fpm/Dockerfile81
-    container_name: php_fpm
+      dockerfile: ./php/fpm/Dockerfile
+    container_name: php_fpm_new
     restart: unless-stopped
     volumes:
       - ./www:/data/www
@@ -28,7 +28,7 @@ services:
   # nginx
   nginx:
     image: nginx:latest
-    container_name: local-nginx
+    container_name: local-nginx-new
     restart: unless-stopped
     ports:
       - 80:80
@@ -40,21 +40,10 @@ services:
     networks:
       - grafana
 
-  node:
-    image: node:14-alpine
-    container_name: node
-    tty: true
-    ports:
-      - 3000:8080
-    volumes:
-      - ./www:/data/www
-    networks:
-      - grafana
-
   # mysql
   mysql:
     image: mysql:5.7
-    container_name: local-mysql
+    container_name: local-mysql-new
     restart: always
     ports:
       - 3306:3306

@@ -1,5 +1,6 @@
 # Docker-compose LNMP 完整版
 
+## 此為架構說明，詳情可見實際檔案
 
 ### 目錄結構
 ![](https://i.imgur.com/RRvdby9.png)

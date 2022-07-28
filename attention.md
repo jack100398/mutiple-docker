@@ -1,6 +1,7 @@
 # 注意事項
 
 ### 此為laravel9使用環境
+- php 為 8.1版
 
 ### 若為了laravel升版使用，請注意以下幾點
 - 須先刪除 `composer.lock`

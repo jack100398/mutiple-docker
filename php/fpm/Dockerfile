@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:7.3-fpm
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -15,9 +15,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Install "curl", "libmemcached-dev", "libpq-dev", "libjpeg-dev",
 #         "libpng-dev", "libfreetype6-dev", "libssl-dev", "libmcrypt-dev",
+
 RUN set -eux; \
     apt-get update; \
-    apt-get upgrade -y; \
+    apt-get upgrade -y; \ 
     apt-get install -y --no-install-recommends \
             curl \
             libmemcached-dev \
@@ -41,9 +42,9 @@ RUN set -eux; \
     docker-php-ext-install pdo_pgsql; \
     # Install the PHP gd library
     docker-php-ext-configure gd \
-            --with-jpeg=/usr/lib \
-            --with-webp=/usr/lib \
-            --with-freetype=/usr/include/freetype2; \
+            --with-jpeg-dir=/usr/lib \
+            --with-webp-dir=/usr/lib \
+            --with-freetype-dir=/usr/include/freetype2; \
     docker-php-ext-install gd; \
     docker-php-ext-install bcmath;\
     php -r 'var_dump(gd_info());'
@@ -52,6 +53,3 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends libzip-dev && \
     rm -r /var/lib/apt/lists/* && \
     docker-php-ext-install -j$(nproc) zip
-
-# Install Composer and extensions
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

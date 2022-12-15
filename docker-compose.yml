@@ -1,18 +1,6 @@
 services:
-  # php-fpm 8.1
-  php81:
-    build:
-      context: .
-      dockerfile: ./php/Dockerfile
-    container_name: local-php-new
-    tty: true
-    restart: unless-stopped
-    volumes:
-      - ./www:/data/www
-    networks:
-      - grafana
-
-  php-fpm81:
+  # php-fpm
+  php-fpm:
     build:
       context: .
       dockerfile: ./php/fpm/Dockerfile
@@ -42,6 +30,7 @@ services:
 
   # mysql
   mysql:
+    platform: linux/x86_64
     image: mysql:5.7
     container_name: local-mysql-new
     restart: always
@@ -50,14 +39,13 @@ services:
     command:
       - --innodb-buffer-pool-size=64M
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "aaaa1111"
-      MYSQL_DATABASE: "mysql"
-      MYSQL_USER: "phil_hsu"
-      MYSQL_PASSWORD: "aaaa1111"
+      MYSQL_DATABASE: "laravel"
+      MYSQL_USER: "josh_chen"
+      MYSQL_PASSWORD: "tp6rup4djp"
     networks:
       - grafana
-
 networks:
   grafana:
